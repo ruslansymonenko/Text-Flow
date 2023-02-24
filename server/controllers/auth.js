@@ -11,7 +11,7 @@ export const register = async (req, res) => {
 
     if(isUsed) {
       return res.json({
-        message: 'Це ім\'я користувача вже використовується'
+        message: 'Це ім\'я користувача вже використовується.'
       })
     }
 
@@ -27,12 +27,12 @@ export const register = async (req, res) => {
 
     res.json({
       newUser, 
-      message: 'Реєстрація пройшла успішно',
+      message: 'Реєстрація пройшла успішно.',
     })
 
   } catch (rerror) {
     res.json({
-      message: 'Помилка при створенні нового користувача'
+      message: 'Помилка при створенні нового користувача.'
     })
   }
 }
@@ -45,7 +45,7 @@ export const login = async (req, res) => {
 
     if(!user) {
       return res.json({
-        message: 'Такого користувача не знайдено'
+        message: 'Такого користувача не знайдено.'
       })
     }
 
@@ -53,7 +53,7 @@ export const login = async (req, res) => {
 
     if(!isPasswordCoorect) {
       return res.json({
-        message: "Невірний пароль"
+        message: "Невірний пароль."
       })
     }
 
@@ -67,12 +67,12 @@ export const login = async (req, res) => {
     res.json({
       token, 
       user, 
-      message: 'Ви увійшли в систему',
+      message: 'Ви увійшли в систему.',
     })
 
   } catch (rerror) {
     res.json({
-      message: 'Помилка при авторизації'
+      message: 'Помилка при авторизації.'
     })
   }
 }
@@ -80,8 +80,28 @@ export const login = async (req, res) => {
 //Get me
 export const getMe = async (req, res) => {
   try{
+    const user = await User.findById(req.userId);
 
+    if(!user) {
+      return res.json({
+        message: 'Такого користувача не знайдено.'
+      })
+    }
+
+    const token = jwt.sign({
+      id: user._id,
+      }, 
+      process.env.JWT_SECRET,
+      {expiresIn: '30d'},
+    );
+
+    res.json({
+      user, 
+      token,
+    })
   } catch (rerror) {
-    
+    return res.json({
+      message: 'Немає доступу.'
+    })
   }
 }

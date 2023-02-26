@@ -5,5 +5,7 @@
 @layer base {
   body{
     font-family: 'Source Sans Pro', sans-serif;
+    min-height: 100vh;
+    background-image: linear-gradient(to right, #13305c, #243a5e, #334560, #424f61, #525962);
   }
 }

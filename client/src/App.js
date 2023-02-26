@@ -19,7 +19,7 @@ function App() {
       <Route path='::id/edit' element={<EditPostPage/>}/>
       <Route path='new' element={<AddPostPage/>}/>
       <Route path='register' element={<RegisterPage/>}/>
-      <Route path='new' element={<LoginPage/>}/>
+      <Route path='login' element={<LoginPage/>}/>
     </Routes>
   </Layout>
   )
